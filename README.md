@@ -1,4 +1,4 @@
-# Docker Basic
+# Docker 基本
 
 [找有用的映像檔](#找有用的映像檔)
 
@@ -22,6 +22,10 @@
 
 - [把檔案複製到 Container 裡](#將檔案搬進-container)
 - [把檔案從 Container 複製出來](#把檔案從-container-複製出來)
+
+[外掛 Container 的儲存空間](#外掛-container-的儲存空間)
+
+[直接執行 Container 內的程式或指令](#直接執行-container-內的程式或指令)
 
 ---
 
@@ -91,3 +95,27 @@
 ### Example
 
     docker cp index.html nginx-cp:/usr/share/nginx/html
+
+## 外掛 Container 的儲存空間
+
+    docker run -v <外部資料夾或檔案的完整路徑>:<Container 內部要被取代的資料夾完整路徑或檔案名稱> -p <對外的埠號>:<預設的埠號> -d <Docker Image 名稱>
+
+### Example
+
+將 container 內的 /usr/share/nginx/html 資料夾改以主機 /var/www 取代
+
+*如果主機上沒有 /var/www 資料夾存在時，docker run 會自動新增主機資料夾
+
+    docker run -v /var/www:/usr/sahre/nginx/html --name nginx01 -p 80:80 -d nginx
+
+主機上 /home/vmzcloud/nginx.conf 取代預設的 nginx.conf
+
+    docker run -v /home/vmzcloud/nginx.conf:/etc/nginx/nginx.conf -v /var/www:/usr/share/nginx/html --name nginx02 -p 80:80 -d nginx
+
+## 直接執行 Container 內的程式或指令
+
+    docker run <Docker Image 名稱> <指令>
+
+### Example
+
+    docker run ubuntu /bin/ls
