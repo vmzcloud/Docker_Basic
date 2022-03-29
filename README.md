@@ -1,5 +1,9 @@
 # Docker 基本
 
+![Blue Whale](blue_whale.png)
+
+---
+
 [找有用的映像檔](#找有用的映像檔)
 
 [下載 docker image](#下載-docker-image)
@@ -26,6 +30,10 @@
 [外掛 Container 的儲存空間](#外掛-container-的儲存空間)
 
 [直接執行 Container 內的程式或指令](#直接執行-container-內的程式或指令)
+
+[讓 Container 在執行結束後自動移除](#讓-container-在執行結束後自動移除)
+
+[Container 自動重新啟動](#container-自動重新啟動)
 
 ---
 
@@ -119,3 +127,27 @@
 ### Example
 
     docker run ubuntu /bin/ls
+
+把 Windows 上某個資料夾用 ls 顯示出來
+
+    docker run -v C:\downloads:/home ubuntu /bin/ls -l /home
+
+## 讓 Container 在執行結束後自動移除
+
+    docker run --rm unbuntu /bin/ls -l /home
+
+## Container 自動重新啟動
+
+    docker run --restart=always nginx
+
+只是需要 Container 自動重新啟動，而不需要在電腦開機自動啟動
+
+    docker run --restart=unless-stopped nginx
+
+Container 非正常退出时，才會重啟 Container
+
+    docker run --restart=failure nginx
+
+Container 非正常退出時重啟，最多重啟3次
+
+    docker run --restart=on-failure:3 nginx
