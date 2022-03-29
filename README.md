@@ -35,6 +35,10 @@
 
 [Container 自動重新啟動](#container-自動重新啟動)
 
+[進入 Container 操作命令列](#進入-container-操作命令列)
+
+[Container 綁定指定 IP address](#container-綁定指定-ip-address)
+
 ---
 
 ## 找有用的映像檔
@@ -144,10 +148,18 @@
 
     docker run --restart=unless-stopped nginx
 
-Container 非正常退出时，才會重啟 Container
+Container 非正常退出時，才會重啟 Container
 
     docker run --restart=failure nginx
 
 Container 非正常退出時重啟，最多重啟3次
 
     docker run --restart=on-failure:3 nginx
+
+## 進入 Container 操作命令列
+
+    docker run -it --rm -name testing-nginx nginx /bin/bash
+
+## Container 綁定指定 IP address
+
+    docker run -p 192.168.5.1:80:80 -d nginx
